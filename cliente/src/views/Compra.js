@@ -7,6 +7,10 @@ import { crearCabecera} from "../services/facturacion"
 import { crearDetalle} from "../services/detalleFacturacion"
 import Swal from "sweetalert2"
 import {useHistory} from "react-router-dom"
+
+
+
+
 function Compra() {
   const { carrito } = useContext(CarritoContext);
   const [marcador, setMarcador] = useState([-16.4001365, -71.5402707])
@@ -93,6 +97,21 @@ const history = useHistory()
     });
     return null;
   }
+
+  const mp = new MercadoPago ('TEST-57d08b98-b679-4f9e-9ecc-7268f48c3b62', {
+    locale: 'es-PE'
+    });
+
+    // Inicializa el checkout
+    mp.checkout({
+      preference: {
+          id: '<%= preference_id %>'
+      },
+      render: {
+            container: '.mpbutton', // Indica el nombre de la clase donde se mostrará el botón de pago
+            label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+      }
+    });
 
   return (
     <div className="container mt-4">
@@ -211,6 +230,7 @@ const history = useHistory()
               Pagar
             </a>
             <br></br>
+            <div class="mpbutton"></div>
           </form>
         </div>
       </div>
