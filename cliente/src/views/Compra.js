@@ -122,9 +122,9 @@ const history = useHistory()
         </div>
         {/* form */}
         <div className="col-12 col-lg-6">
-          <h4>Datos del Comprador</h4>
+          <h4>Confirmar pago: </h4>
           <form onSubmit={handleSubmit(recibirSubmit)}>
-            <div className="mb-2">
+            {/* <div className="mb-2">
               <label className="form-label">Nombres</label>
               <input
                 type="text"
@@ -205,9 +205,11 @@ const history = useHistory()
                 <span className="text-danger">Solamente Letras</span>
               )}
             </div>
-            <button type="submit" className="btn btn-success">
-              Confirmar Compra
-            </button>
+            <br></br>
+            <br></br> */}
+            <a href= "/Producto/producto.id/buy" type="submit" className="btn btn-success">
+              Pagar
+            </a>
             <br></br>
           </form>
         </div>

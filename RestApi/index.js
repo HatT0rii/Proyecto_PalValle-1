@@ -1,5 +1,6 @@
 const express =  require('express')
 const dotenv = require('dotenv')
+const mercadopago = require('mercadopago');
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const { CategoriaController } = require( './controllers/categoria_controllers' )
@@ -7,6 +8,7 @@ const { ProductoController } = require('./controllers/producto_controllers')
 const { ClienteController } = require('./controllers/cliente_controllers') 
 const { FacturacionController } = require('./controllers/facturacion_controllers') 
 const { DetalleFacturacionController } = require('./controllers/detalle_facturacion_controllers') 
+const { PaymentController } = require('./controllers/payment_controller')
 
 dotenv.config()
 const app = express()
@@ -53,5 +55,7 @@ app.get('/Detalle_Facturacion/NroFac/:id_facturacion', DetalleFacturacionControl
 app.put('/Detalle_Facturacion/:id', DetalleFacturacionController.update) 
 app.delete('/Detalle_Facturacion/:id', DetalleFacturacionController.delete)  
 
+app.get('/Producto/:id/buy', PaymentController.startPayment)
+app.get('/api/products/congrats', PaymentController.successfulPayment)
 
 app.listen(3000)

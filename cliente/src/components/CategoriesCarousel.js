@@ -1,5 +1,6 @@
 import React from 'react'
 import Slider from "react-slick";
+import {Link} from "react-router-dom"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import foto1 from '../assets/foto01.jpg'
@@ -26,10 +27,10 @@ function CategoriesCarousel() {
                         <img src={foto1}  alt="..."/>
                     </div>
                     <ul className="social-icons">
-                        <li><a href="/"><i className="fa"></i></a></li>
+                        <li><Link to="/detalle/:id"><i className="fa"></i></Link></li>
                     </ul>
                     <div className="details">
-                        <a className="btn btn-success" href="/">Comprar</a>
+                        <Link className="btn btn-success" to="/detalle/:id">Comprar</Link>
                     </div>
                 </div>
             </div>
@@ -39,10 +40,10 @@ function CategoriesCarousel() {
                         <img src={foto2} alt="..."/>
                     </div>
                     <ul className="social-icons">
-                        <li><a href="/"><i className="fa"></i></a></li>
+                        <li><Link to="/detalle/:id"><i className="fa"></i></Link></li>
                     </ul>
                     <div className="details">
-                        <a className="btn btn-success" href="/">Comprar</a>
+                    <Link className="btn btn-success" to="/detalle/:id">Comprar</Link>
                     </div>
                 </div>
             </div>
@@ -52,10 +53,10 @@ function CategoriesCarousel() {
                         <img src={foto3} alt="..." />
                     </div>
                     <ul className="social-icons">
-                        <li><a href="/"><i className="fa"></i></a></li>
+                        <li><Link to="/detalle/:id"><i className="fa"></i></Link></li>
                     </ul>
                     <div className="details">
-                        <a className="btn btn-success" href="/">Comprar</a>
+                        <Link className="btn btn-success" to="/detalle/:id">Comprar</Link>
                     </div>
                 </div>
             </div>
@@ -65,10 +66,10 @@ function CategoriesCarousel() {
                         <img src={foto4} alt="..."/>
                     </div>
                     <ul className="social-icons">
-                        <li><a href="/"><i className="fa"></i></a></li>
+                        <li><Link to="/detalle/:id"><i className="fa"></i></Link></li>
                     </ul>
                     <div className="details">
-                        <a className="btn btn-success" href="/">Comprar</a>
+                        <Link className="btn btn-success" to="/detalle/:id">Comprar</Link>
                     </div>
                 </div>
             </div>
