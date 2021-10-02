@@ -1,4 +1,4 @@
-import React, {useState, useContext } from "react";
+import React, {useState, useContext, useEffect } from "react";
 import { CarritoContext } from "../context/carritoContext";
 import { useForm } from "react-hook-form";
 import {useMapEvents} from "react-leaflet";
@@ -7,13 +7,16 @@ import { crearCabecera} from "../services/facturacion"
 import { crearDetalle} from "../services/detalleFacturacion"
 import Swal from "sweetalert2"
 import {useHistory} from "react-router-dom"
-
+import { useMercadopago } from 'react-sdk-mercadopago';
+import { useParams } from "react-router-dom";
+import axios from "axios"
 
 
 
 function Compra() {
   const { carrito } = useContext(CarritoContext);
   const [marcador, setMarcador] = useState([-16.4001365, -71.5402707])
+  const {productoId} = 'payment-form';
   const {
     register,
     handleSubmit,
@@ -79,13 +82,7 @@ const history = useHistory()
     } catch (error) {
       throw error
     }
-
-   
-
   }
-
- 
-
 
   function AddMarker() {
     const map = useMapEvents({
@@ -98,20 +95,53 @@ const history = useHistory()
     return null;
   }
 
-  const mp = new MercadoPago ('TEST-57d08b98-b679-4f9e-9ecc-7268f48c3b62', {
-    locale: 'es-PE'
+  function Checkout() {
+    const mercadopago = useMercadopago.v2('TEST-78dd8c67-9df2-4e04-b9fc-1b0ea6deca72', {
+        locale: 'en-PE'
     });
 
-    // Inicializa el checkout
-    mp.checkout({
-      preference: {
-          id: '<%= preference_id %>'
-      },
-      render: {
-            container: '.mpbutton', // Indica el nombre de la clase donde se mostrará el botón de pago
-            label: 'Pagar', // Cambia el texto del botón de pago (opcional)
-      }
-    });
+    useEffect(() => {
+        if (mercadopago) {
+            mercadopago.checkout({
+                preference: {
+                    id: 'produc.id'
+                },
+                render: {
+                  container: 'mpbutton',
+                  label: 'Pagar',
+                }
+            })
+        }
+    }, [mercadopago])
+
+    
+    function Producto() {
+      const { id } = useParams(); // id de producto
+      const [preferenceId, setPreferenceId] = useState(null);
+    
+      useEffect(() => {
+        // luego de montarse el componente, le pedimos al backend el preferenceId
+        axios.post('/api/producto', { productoId: id }).then((order) => {
+          setPreferenceId(order.preferenceId);
+        });
+      }, [id]);
+    
+      useEffect(() => {
+        if (preferenceId) {
+          // con el preferenceId en mano, inyectamos el script de mercadoPago
+          const script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src =
+            'https://www.mercadopago.cl/integrations/v1/web-payment-checkout.js';
+          script.setAttribute('data-preference-id', preferenceId);
+          const form = document.getElementById(productoId);
+          form.appendChild(script);
+        }
+      }, [preferenceId]);
+
+  }
+}
+
 
   return (
     <div className="container mt-4">
@@ -225,12 +255,11 @@ const history = useHistory()
               )}
             </div>
             <br></br>
-            <br></br> */}
-            <a href= "/Producto/producto.id/buy" type="submit" className="btn btn-success">
-              Pagar
-            </a>
-            <br></br>
-            <div class="mpbutton"></div>
+              <br></br> */}
+            <div class="mpbutton">
+              <button class="btn-success">Pagar</button>
+              <form id={productoId} method="GET" />
+            </div>
           </form>
         </div>
       </div>
