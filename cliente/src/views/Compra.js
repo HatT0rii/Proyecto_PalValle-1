@@ -98,9 +98,9 @@ const history = useHistory()
     return null;
   }
 
-  const mp = new MercadoPago ('TEST-57d08b98-b679-4f9e-9ecc-7268f48c3b62', {
-    locale: 'es-PE'
-    });
+  // const mp = new MercadoPago ('TEST-57d08b98-b679-4f9e-9ecc-7268f48c3b62', {
+  //   locale: 'es-PE'
+  //   });
 
     // Inicializa el checkout
     mp.checkout({

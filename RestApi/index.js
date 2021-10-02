@@ -1,6 +1,6 @@
 const express =  require('express')
 const dotenv = require('dotenv')
-const mercadopago = require('mercadopago');
+// const mercadopago = require('mercadopago');
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const { CategoriaController } = require( './controllers/categoria_controllers' )
@@ -9,14 +9,21 @@ const { ClienteController } = require('./controllers/cliente_controllers')
 const { FacturacionController } = require('./controllers/facturacion_controllers') 
 const { DetalleFacturacionController } = require('./controllers/detalle_facturacion_controllers') 
 const { PaymentController } = require('./controllers/payment_controller')
+const engine = require('ejs-mate');
+// const path = require('path');
+// const morgan = require('morgan');
+
 
 dotenv.config()
 const app = express()
 app.use(bodyParser.json())
 app.use(cors());
 
+// app.use('/', require('./routes/index'));
+
+
 app.get('/', (req, res) =>{
-    res.send("hello word")
+    res.send("hello word!")
 })
 
 
