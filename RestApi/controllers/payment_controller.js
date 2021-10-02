@@ -60,7 +60,7 @@ class PaymentController {
                 let new_stock = data.stock - 1
                 Producto.update({stock: new_stock}, {where: {id: productoId}})
                 .then( (data) => {
-                    res.redirect('/Producto/:id')
+                    res.redirect('/api/producto')
                 })
                 .catch( (err) => {
                     res.status(404).send({
